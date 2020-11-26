@@ -35,7 +35,11 @@ Vagrant.configure(2) do |config|
       vb.memory = 4096
       vb.cpus = 1
     end
-    node.vm.network :public_network, ip: "192.168.5.100", netmask: "255.255.255.0"
+    node.vm.network :public_network, ip: "192.168.5.100", netmask: "255.255.255.0", bridge: [
+      "en9: Thunderbolt Ethernet Slot  2",
+      "en0: WLAN (Wireless)",
+      "bridge0",
+    ]
   end
 
   config.vm.provision "bootstrap", type: "shell" do |s|
