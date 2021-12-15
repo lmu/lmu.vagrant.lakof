@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
       vb.memory = 4096
       vb.cpus = 1
     end
-    node.vm.network :public_network, ip: "192.168.5.100", netmask: "255.255.255.0", bridge: [
+    node.vm.network :public_network, ip: "192.168.178.222", netmask: "255.255.255.0", bridge: [
       "en9: Thunderbolt Ethernet Slot  2",
       "en0: WLAN (Wireless)",
       "bridge0",
@@ -68,7 +68,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision "application", type: "ansible" do |ansible| # run: "never"
     ansible.compatibility_mode = "2.0"
     ansible.playbook = "lmu.ansible.playbooks/lakof.yml"
-    #ansible.playbook = "lmu.ansible.playbooks/jenkins.yml"
     ansible.groups = {
       "lakof" => ["lakof-server",],
     }
@@ -82,6 +81,7 @@ Vagrant.configure(2) do |config|
     ansible.limit = "all"
     #ansible.tags = ["setup", "configuration", "update"]
     #ansible.skip_tags = ["update"]
+    #ansible.raw_arguments = ['-e pipelining=True -e allow_world_readable_tmpfiles=True']
     ansible.extra_vars = {
     #  ansible_connection: 'ssh',
     #  ansible_port: '2222',
